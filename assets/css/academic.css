@@ -112,6 +112,18 @@ section.block:nth-of-type(even) {
   color: #f4efe6;
   position: relative;
 }
+.snake-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.snake-layer canvas {
+  display: block;
+  opacity: 0.9;
+}
+.hero .wrap { position: relative; z-index: 1; }
 .hero::after {
   content: "";
   position: absolute;

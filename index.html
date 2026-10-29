@@ -30,6 +30,9 @@
   <main id="top">
 
     <section class="hero">
+      <div class="snake-layer" aria-hidden="true">
+        <canvas id="snake-bg"></canvas>
+      </div>
       <div class="wrap">
         <h1>Stefano Simonetti Macaya</h1>
         <p class="role">Biostatistician and doctoral researcher</p>
@@ -217,6 +220,7 @@
     </div>
   </footer>
 
+  <script src="assets/js/snake-bg.js"></script>
   <script>
     const form = document.getElementById("contact-form");
     const status = document.getElementById("status");
