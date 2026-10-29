@@ -8,9 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/academic.css?v=5" />
+  <link rel="stylesheet" href="assets/css/academic.css?v=6" />
 </head>
 <body>
+
+  <div class="snake-layer" aria-hidden="true">
+    <canvas id="snake-bg"></canvas>
+  </div>
 
   <header class="topbar">
     <div class="wrap">
@@ -29,10 +33,7 @@
 
   <main id="top">
 
-    <section class="hero">
-      <div class="snake-layer" aria-hidden="true">
-        <canvas id="snake-bg"></canvas>
-      </div>
+    <section class="hero" data-snake="blue">
       <div class="wrap">
         <h1>Stefano Simonetti Macaya</h1>
         <p class="role">Biostatistician and doctoral researcher</p>
@@ -49,7 +50,7 @@
       </div>
     </section>
 
-    <section id="about" class="block">
+    <section id="about" class="block" data-snake="teal">
       <div class="wrap">
         <p class="eyebrow">Background</p>
         <h2>About</h2>
@@ -81,7 +82,7 @@
       </div>
     </section>
 
-    <section id="projects" class="block">
+    <section id="projects" class="block" data-snake="blue">
       <div class="wrap">
         <p class="eyebrow">Work</p>
         <h2>Projects</h2>
@@ -126,7 +127,7 @@
       </div>
     </section>
 
-    <section id="templates" class="block">
+    <section id="templates" class="block" data-snake="ember">
       <div class="wrap">
         <p class="eyebrow">Resources</p>
         <h2>Presentation Templates</h2>
@@ -160,7 +161,7 @@
       </div>
     </section>
 
-    <section id="cv" class="block">
+    <section id="cv" class="block" data-snake="teal">
       <div class="wrap">
         <p class="eyebrow">Resources</p>
         <h2>CV LaTeX Template</h2>
@@ -179,7 +180,7 @@
       </div>
     </section>
 
-    <section id="contact" class="block">
+    <section id="contact" class="block" data-snake="ember">
       <div class="wrap">
         <p class="eyebrow">Contact</p>
         <h2>Get in touch</h2>
@@ -220,7 +221,7 @@
     </div>
   </footer>
 
-  <script src="assets/js/snake-bg.js?v=5"></script>
+  <script src="assets/js/snake-bg.js?v=6"></script>
   <script>
     const form = document.getElementById("contact-form");
     const status = document.getElementById("status");
