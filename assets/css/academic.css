@@ -108,8 +108,8 @@ section.block:nth-of-type(even) {
 .hero {
   padding: 4.5rem 0 3.5rem;
   background:
-    linear-gradient(135deg, var(--navy) 0%, #24406a 100%);
-  color: #f4efe6;
+    linear-gradient(135deg, #b5653a 0%, #8f4a2b 100%);
+  color: #fbf8f2;
   position: relative;
 }
 .snake-layer {
@@ -129,7 +129,7 @@ section.block:nth-of-type(even) {
   position: absolute;
   left: 0; right: 0; bottom: 0;
   height: 6px;
-  background: var(--ember);
+  background: var(--navy);
 }
 .hero h1 {
   font-size: 2.7rem;
@@ -138,7 +138,7 @@ section.block:nth-of-type(even) {
 }
 .hero .role {
   font-size: 1.15rem;
-  color: #e9c9a8;
+  color: #f7e3cf;
   margin-bottom: 1.25rem;
 }
 .hero .lead {
@@ -146,11 +146,11 @@ section.block:nth-of-type(even) {
   font-size: 1.08rem;
   color: #f4efe6;
 }
-.hero .eyebrow { color: #e9c9a8; }
+.hero .eyebrow { color: #f7e3cf; }
 .hero .btn { color: #fbf8f2; border-color: #fbf8f2; }
-.hero .btn:hover { background: #fbf8f2; color: var(--navy); }
-.hero .btn.primary { background: var(--ember); border-color: var(--ember); color: #fff; }
-.hero .btn.primary:hover { background: #9c552e; border-color: #9c552e; color: #fff; }
+.hero .btn:hover { background: #fbf8f2; color: #8f4a2b; }
+.hero .btn.primary { background: var(--navy); border-color: var(--navy); color: #fbf8f2; }
+.hero .btn.primary:hover { background: #0f1d33; border-color: #0f1d33; color: #fbf8f2; }
 .actions {
   display: flex;
   gap: 0.75rem;
