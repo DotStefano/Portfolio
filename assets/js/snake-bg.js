@@ -1,21 +1,30 @@
-/* Minimal glowing snake background for the hero section */
+/* Pixel-art snake hunting squares, for the hero background.
+   Palette kept from the site: navy -> light blue, with a soft blue glow. */
 (function () {
   const canvas = document.getElementById("snake-bg");
   if (!canvas || !canvas.getContext) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = false;
 
-  const SEGMENTS = 46;        // length of the snake
-  const SPEED = 1.6;          // px per frame
-  const TURN = 0.06;          // max turn per frame (radians)
-  const COLORS = ["#1e3a8a", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd"];
+  const CELL = 14;            // size of one pixel-block in CSS px
+  const GAP = 2;              // gap between blocks (gives the pixel look)
+  const STEP_MS = 110;        // time between moves
+  const MAX_TARGETS = 3;      // squares on screen at once
+  const SNAKE_COLORS = ["#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd"];
+  const FOOD_COLOR = "#bfdbfe";
 
-  let width = 0, height = 0, dpr = 1;
-  let snake = [];
-  let angle = 0;
-  let targetAngle = 0;
-  let frame = 0;
+  let cols = 0, rows = 0, dpr = 1, width = 0, height = 0;
+  let snake = [];             // [{x, y}], head first
+  let dir = { x: 1, y: 0 };
+  let foods = [];
+  let lastStep = 0;
+  let blink = 0;
+
+  const DIRS = [
+    { x: 1, y: 0 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 0, y: -1 }
+  ];
 
   function resize() {
     const rect = canvas.parentElement.getBoundingClientRect();
@@ -27,85 +36,149 @@
     canvas.style.width = width + "px";
     canvas.style.height = height + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.floor(width / CELL);
+    rows = Math.floor(height / CELL);
     reset();
   }
 
+  function occupied(x, y) {
+    if (snake.some(s => s.x === x && s.y === y)) return true;
+    return foods.some(f => f.x === x && f.y === y);
+  }
+
+  function randomFreeCell() {
+    for (let tries = 0; tries < 200; tries++) {
+      const x = Math.floor(Math.random() * cols);
+      const y = Math.floor(Math.random() * rows);
+      if (!occupied(x, y)) return { x, y };
+    }
+    return null;
+  }
+
   function reset() {
-    const x = width * 0.8;
-    const y = height * 0.5;
-    angle = Math.PI;
-    targetAngle = angle;
+    const startX = Math.max(3, Math.floor(cols * 0.75));
+    const startY = Math.floor(rows / 2);
     snake = [];
-    for (let i = 0; i < SEGMENTS; i++) {
-      snake.push({ x: x + i * 4, y: y });
+    for (let i = 0; i < 6; i++) snake.push({ x: startX + i, y: startY });
+    dir = { x: -1, y: 0 };
+    foods = [];
+    while (foods.length < MAX_TARGETS) {
+      const c = randomFreeCell();
+      if (!c) break;
+      foods.push(c);
     }
   }
 
-  function step() {
-    frame++;
-    // Pick a new gentle target heading every so often
-    if (frame % 90 === 0) {
-      targetAngle = angle + (Math.random() - 0.5) * Math.PI * 0.9;
+  function nearestFood(from) {
+    let best = null, bestD = Infinity;
+    for (const f of foods) {
+      const d = Math.abs(f.x - from.x) + Math.abs(f.y - from.y);
+      if (d < bestD) { bestD = d; best = f; }
     }
-    // Steer toward the target, limited by TURN
-    let diff = targetAngle - angle;
-    diff = Math.atan2(Math.sin(diff), Math.cos(diff));
-    angle += Math.max(-TURN, Math.min(TURN, diff));
+    return best;
+  }
 
+  function isSafe(x, y) {
+    if (x < 0 || y < 0 || x >= cols || y >= rows) return false;
+    // The tail moves away this step, so its cell is safe to enter
+    for (let i = 0; i < snake.length - 1; i++) {
+      if (snake[i].x === x && snake[i].y === y) return false;
+    }
+    return true;
+  }
+
+  function chooseDirection() {
     const head = snake[0];
-    let nx = head.x + Math.cos(angle) * SPEED;
-    let ny = head.y + Math.sin(angle) * SPEED;
+    const target = nearestFood(head);
+    const options = DIRS.filter(d => !(d.x === -dir.x && d.y === -dir.y));
 
-    // Bounce softly off the edges by redirecting the target
-    const margin = 20;
-    if (nx < margin || nx > width - margin || ny < margin || ny > height - margin) {
-      targetAngle = Math.atan2(height / 2 - ny, width / 2 - nx) + (Math.random() - 0.5) * 0.6;
-      nx = Math.max(margin, Math.min(width - margin, nx));
-      ny = Math.max(margin, Math.min(height - margin, ny));
+    const scored = options.map(d => {
+      const nx = head.x + d.x, ny = head.y + d.y;
+      const safe = isSafe(nx, ny);
+      const dist = target ? Math.abs(target.x - nx) + Math.abs(target.y - ny) : 0;
+      // Lower is better; small random factor keeps the path organic
+      const score = (safe ? 0 : 1000) + dist + Math.random() * 1.5;
+      return { d, score, safe };
+    });
+    scored.sort((a, b) => a.score - b.score);
+    return scored[0].safe ? scored[0].d : dir;
+  }
+
+  function step() {
+    dir = chooseDirection();
+    const head = snake[0];
+    const nx = head.x + dir.x;
+    const ny = head.y + dir.y;
+
+    // Wrap around the edges so the snake keeps roaming
+    const wx = (nx + cols) % cols;
+    const wy = (ny + rows) % rows;
+
+    snake.unshift({ x: wx, y: wy });
+
+    const eatenIndex = foods.findIndex(f => f.x === wx && f.y === wy);
+    if (eatenIndex >= 0) {
+      foods.splice(eatenIndex, 1);
+      const c = randomFreeCell();
+      if (c) foods.push(c);
+    } else {
+      snake.pop();
     }
 
-    snake.unshift({ x: nx, y: ny });
-    snake.pop();
+    // If the snake has nowhere useful to go, start over
+    if (snake.length > cols * rows * 0.5) reset();
+  }
+
+  function drawBlock(x, y, color, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.fillRect(x * CELL + GAP / 2, y * CELL + GAP / 2, CELL - GAP, CELL - GAP);
   }
 
   function draw() {
     ctx.clearRect(0, 0, width, height);
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
     ctx.shadowColor = "#3b82f6";
-    ctx.shadowBlur = 18;
 
-    // Draw from tail to head so the head sits on top
-    for (let i = snake.length - 1; i > 0; i--) {
-      const a = snake[i];
-      const b = snake[i - 1];
-      const t = i / (snake.length - 1);          // 0 at head, 1 at tail
-      const alpha = 0.85 * (1 - t * 0.85);
-      const width_ = 6 * (1 - t * 0.7) + 1.5;
-      const color = COLORS[Math.min(COLORS.length - 1, Math.floor((1 - t) * COLORS.length))];
-
-      ctx.globalAlpha = alpha;
-      ctx.strokeStyle = color;
-      ctx.lineWidth = width_;
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
+    // Food: blinking squares with glow
+    blink = (blink + 1) % 40;
+    const foodAlpha = blink < 28 ? 1 : 0.55;
+    ctx.shadowBlur = 14;
+    for (const f of foods) {
+      drawBlock(f.x, f.y, FOOD_COLOR, foodAlpha);
     }
 
-    // Head dot with a stronger glow
+    // Snake: tail to head, colour shifts from dark navy (tail) to light blue (head)
+    ctx.shadowBlur = 10;
+    for (let i = snake.length - 1; i >= 0; i--) {
+      const t = i / Math.max(1, snake.length - 1);   // 0 head, 1 tail
+      const colorIdx = Math.min(SNAKE_COLORS.length - 1, Math.floor((1 - t) * SNAKE_COLORS.length));
+      const alpha = 0.95 - t * 0.5;
+      drawBlock(snake[i].x, snake[i].y, SNAKE_COLORS[colorIdx], alpha);
+    }
+
+    // Eyes on the head
     const h = snake[0];
+    ctx.shadowBlur = 0;
     ctx.globalAlpha = 1;
-    ctx.shadowBlur = 26;
-    ctx.fillStyle = "#bfdbfe";
-    ctx.beginPath();
-    ctx.arc(h.x, h.y, 3.2, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.fillStyle = "#0b1d3a";
+    const ex = h.x * CELL, ey = h.y * CELL;
+    const eyeSize = Math.max(2, Math.floor(CELL / 5));
+    if (dir.x !== 0) {
+      ctx.fillRect(ex + CELL * 0.55, ey + CELL * 0.25, eyeSize, eyeSize);
+      ctx.fillRect(ex + CELL * 0.55, ey + CELL * 0.6, eyeSize, eyeSize);
+    } else {
+      ctx.fillRect(ex + CELL * 0.25, ey + CELL * 0.55, eyeSize, eyeSize);
+      ctx.fillRect(ex + CELL * 0.6, ey + CELL * 0.55, eyeSize, eyeSize);
+    }
     ctx.globalAlpha = 1;
   }
 
-  function loop() {
-    step();
+  function loop(ts) {
+    if (!lastStep) lastStep = ts;
+    if (ts - lastStep >= STEP_MS) {
+      step();
+      lastStep = ts;
+    }
     draw();
     requestAnimationFrame(loop);
   }
@@ -114,8 +187,7 @@
   window.addEventListener("resize", resize);
 
   if (reduceMotion) {
-    // Static snapshot: advance a little so it doesn't look like a straight line
-    for (let i = 0; i < 120; i++) step();
+    for (let i = 0; i < 60; i++) step();
     draw();
   } else {
     requestAnimationFrame(loop);
