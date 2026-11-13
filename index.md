@@ -6,6 +6,20 @@ I connect wet-lab experimentation with computational analysis to deliver rigorou
 
 [GitHub](https://github.com/DotStefano) · [ORCID](https://orcid.org/0000-0002-0624-102X) · [Contact](#contact)
 
+## Main interests
+
+- Gallbladder cancer risk prediction in patients with gallstone disease
+- Metallomics and trace metal homeostasis as a cancer mechanism
+- Genomics and health disparities in Andean and Mapuche populations
+- Survival analysis and Mendelian randomization
+- Systematic review methodology
+- Reproducible research tooling in R and Python
+
+## Affiliations
+
+- Institut de Cancérologie Strasbourg Europe (ICANS) / Institut Strauss, Strasbourg, France
+- [Institute of Medical Biometry (IMBI), Heidelberg University](https://klinikum.uni-heidelberg.de/en/kliniken-institute/institute/medizinische-biometrie), Germany
+
 ## About
 
 - **Biotechnology Engineer.** Rational drug design, cell culture, organic synthesis and purification. Cellular and molecular biology, cell viability assays, and scientific documentation in LaTeX.
