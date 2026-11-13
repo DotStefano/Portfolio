@@ -1,0 +1,12 @@
+theme: jekyll-theme-minimal
+title: Stefano Simonetti Macaya
+description: Biostatistician and doctoral researcher. Metallomics, genomics and data analysis for gallbladder cancer.
+logo: /images/profile.png
+lang: en
+show_downloads: false
+
+exclude:
+  - README.md
+  - README.txt
+  - LICENSE.txt
+  - images/avatar.svg
