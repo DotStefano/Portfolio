@@ -32,5 +32,5 @@ affiliations:
     url: ""
   - name: Institute of Medical Biometry (IMBI), Heidelberg University
     place: Heidelberg, Germany
-    logo: ""   # e.g. /images/logos/heidelberg.png
+    logo: /images/logos/heidelberg.png
     url: https://klinikum.uni-heidelberg.de/en/kliniken-institute/institute/medizinische-biometrie
