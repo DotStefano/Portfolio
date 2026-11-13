@@ -84,3 +84,12 @@ header img { width: 170px; height: 170px; object-fit: cover; }
   height: 6px;
   background: #267CB9;
 }
+
+.affiliations { list-style: none; padding: 0; margin: 0 0 20px; }
+.affiliations li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.affiliations img { height: 48px; width: auto; max-width: 110px; object-fit: contain; flex: none; }

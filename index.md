@@ -6,8 +6,14 @@ I connect wet-lab experimentation with computational analysis to deliver rigorou
 
 ## Affiliations
 
-- Institut de Cancérologie Strasbourg Europe (ICANS) / Institut Strauss, Strasbourg, France
-- [Institute of Medical Biometry (IMBI), Heidelberg University](https://klinikum.uni-heidelberg.de/en/kliniken-institute/institute/medizinische-biometrie), Germany
+<ul class="affiliations">
+{% for a in site.affiliations %}
+  <li>
+    {% if a.logo %}<img src="{{ a.logo | relative_url }}" alt="{{ a.name }} logo">{% endif %}
+    <span>{% if a.url %}<a href="{{ a.url }}" target="_blank" rel="noopener">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}<br><small>{{ a.place }}</small></span>
+  </li>
+{% endfor %}
+</ul>
 
 ## About
 

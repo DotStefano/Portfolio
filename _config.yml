@@ -24,3 +24,13 @@ interests:
   - Survival analysis and Mendelian randomization
   - Systematic review methodology
   - Reproducible research in R and Python
+
+affiliations:
+  - name: Institut de Cancérologie Strasbourg Europe (ICANS) / Institut Strauss
+    place: Strasbourg, France
+    logo: ""   # e.g. /images/logos/icans.png
+    url: ""
+  - name: Institute of Medical Biometry (IMBI), Heidelberg University
+    place: Heidelberg, Germany
+    logo: ""   # e.g. /images/logos/heidelberg.png
+    url: https://klinikum.uni-heidelberg.de/en/kliniken-institute/institute/medizinische-biometrie
