@@ -52,8 +52,11 @@ High-contrast navy with golden accents. Includes a design reference slide and se
 [GitHub](https://github.com/DotStefano/Beamer-template/tree/main/Paleta-1-Navy-Gold) · [Open in Overleaf](https://www.overleaf.com/docs?snip_uri=https://raw.githubusercontent.com/DotStefano/Beamer-template/main/Paleta-1-Navy-Gold/Paleta_1_Navy_Gold.tex)
 
 <figure class="preview">
-  <iframe src="{{ '/assets/pdf/Paleta_1_Navy_Gold.pdf' | relative_url }}#view=FitH" title="Preview: Palette 1, Navy and Gold" loading="lazy"></iframe>
-  <figcaption>Preview of the slides</figcaption>
+  <a href="{{ '/assets/pdf/Paleta_1_Navy_Gold.pdf' | relative_url }}" target="_blank" rel="noopener">
+    <img src="{{ '/images/previews/palette1-01.jpg' | relative_url }}" alt="Palette 1, Navy and Gold: title slide" loading="lazy">
+    <img src="{{ '/images/previews/palette1-02.jpg' | relative_url }}" alt="Palette 1, Navy and Gold: design reference slide" loading="lazy">
+  </a>
+  <figcaption>Preview of the first slides. Click to open the full PDF.</figcaption>
 </figure>
 
 ### Palette 2: Blue and Red
@@ -62,8 +65,11 @@ Classic academic blue tones with a red accent, following the same structure as P
 [GitHub](https://github.com/DotStefano/Beamer-template/tree/main/Paleta-2-Blue-Red) · [Open in Overleaf](https://www.overleaf.com/docs?snip_uri=https://raw.githubusercontent.com/DotStefano/Beamer-template/main/Paleta-2-Blue-Red/template_beamer_alt.tex)
 
 <figure class="preview">
-  <iframe src="{{ '/assets/pdf/Paleta_2_Blue_Red.pdf' | relative_url }}#view=FitH" title="Preview: Palette 2, Blue and Red" loading="lazy"></iframe>
-  <figcaption>Preview of the slides</figcaption>
+  <a href="{{ '/assets/pdf/Paleta_2_Blue_Red.pdf' | relative_url }}" target="_blank" rel="noopener">
+    <img src="{{ '/images/previews/palette2-01.jpg' | relative_url }}" alt="Palette 2, Blue and Red: title slide" loading="lazy">
+    <img src="{{ '/images/previews/palette2-02.jpg' | relative_url }}" alt="Palette 2, Blue and Red: design reference slide" loading="lazy">
+  </a>
+  <figcaption>Preview of the first slides. Click to open the full PDF.</figcaption>
 </figure>
 
 ## CV LaTeX template
@@ -71,9 +77,11 @@ Classic academic blue tones with a red accent, following the same structure as P
 A minimalist, black-and-white, ATS-friendly CV template with modular sections and FontAwesome icons. Easy to adapt for academic, research or industry profiles.
 [View on GitHub](https://github.com/DotStefano/Simple-CV) · [Read in Overleaf](https://www.overleaf.com/read/ngrzswrvzptb#987500)
 
-<figure class="preview preview-tall">
-  <iframe src="{{ '/assets/pdf/Simple_CV.pdf' | relative_url }}#view=FitH" title="Preview: CV LaTeX template" loading="lazy"></iframe>
-  <figcaption>Preview of the example CV</figcaption>
+<figure class="preview">
+  <a href="{{ '/assets/pdf/Simple_CV.pdf' | relative_url }}" target="_blank" rel="noopener">
+    <img src="{{ '/images/previews/cv-1.jpg' | relative_url }}" alt="CV LaTeX template: first page" loading="lazy">
+  </a>
+  <figcaption>Preview of the example CV. Click to open the full PDF.</figcaption>
 </figure>
 
 ## Contact
