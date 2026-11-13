@@ -28,7 +28,7 @@ interests:
 affiliations:
   - name: Institut de Cancérologie Strasbourg Europe (ICANS) / Institut Strauss
     place: Strasbourg, France
-    logo: ""   # e.g. /images/logos/icans.png
+    logo: /images/logos/institut-strauss.png
     url: ""
   - name: Institute of Medical Biometry (IMBI), Heidelberg University
     place: Heidelberg, Germany
