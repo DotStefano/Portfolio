@@ -10,3 +10,17 @@ exclude:
   - README.txt
   - LICENSE.txt
   - images/avatar.svg
+
+social:
+  orcid: https://orcid.org/0000-0002-0624-102X
+  github: https://github.com/DotStefano
+  scholar: ""    # add your Google Scholar profile URL
+  linkedin: ""   # add your LinkedIn profile URL
+
+interests:
+  - Gallbladder cancer risk prediction
+  - Metallomics and trace metals in cancer
+  - Genomics of Andean and Mapuche populations
+  - Survival analysis and Mendelian randomization
+  - Systematic review methodology
+  - Reproducible research in R and Python

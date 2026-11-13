@@ -4,17 +4,6 @@ layout: default
 
 I connect wet-lab experimentation with computational analysis to deliver rigorous, data-driven science. My current work bridges metallomics, genomics and statistics to study **gallbladder cancer**.
 
-[GitHub](https://github.com/DotStefano) · [ORCID](https://orcid.org/0000-0002-0624-102X) · [Contact](#contact)
-
-## Main interests
-
-- Gallbladder cancer risk prediction in patients with gallstone disease
-- Metallomics and trace metal homeostasis as a cancer mechanism
-- Genomics and health disparities in Andean and Mapuche populations
-- Survival analysis and Mendelian randomization
-- Systematic review methodology
-- Reproducible research tooling in R and Python
-
 ## Affiliations
 
 - Institut de Cancérologie Strasbourg Europe (ICANS) / Institut Strauss, Strasbourg, France
